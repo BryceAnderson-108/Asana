@@ -1,4 +1,4 @@
-﻿using Asana.Library.Models;
+using Asana.Library.Models;
 using System;
 
 namespace Asana
@@ -14,7 +14,6 @@ namespace Asana
             var projectItemCount = 0;
             var toDoChoice = 0;
             var projChoice = 0;
-            var projToDos = 0;
             do
             {
                 Console.WriteLine("Choose a menu option:");
@@ -43,7 +42,7 @@ namespace Asana
                             Console.Write("Description:");
                             var description = Console.ReadLine();
                             Console.Write("Priority: ");
-                            var priority = Console.ReadLine();
+                            var priority = Convert.ToInt32(Console.ReadLine());
                             Console.Write("Project ID: ");
                             var projIdentifier = Convert.ToInt32(Console.ReadLine());
 
@@ -95,7 +94,7 @@ namespace Asana
                                 updateReference.IsCompleted = 
                                 bool.Parse(Console.ReadLine());
                                 Console.Write("Priority: ");
-                                updateReference.Priority = Console.ReadLine();
+                                updateReference.Priority = Convert.ToInt32(Console.ReadLine());
                                 Console.Write("Project ID: ");
                                 updateReference.ProjectId = Convert.ToInt32(Console.ReadLine());
                             }
@@ -152,13 +151,15 @@ namespace Asana
                                     {
                                         if(x?.IsCompleted == true){
                                             totalTodosComplete++;
+                                            p.projToDos++;
                                         }
                                         else if(x?.IsCompleted == false){
                                             totalTodosIncomplete++;
+                                            p.projToDos++;
                                         }
                                     }
                                 
-                                p.CompletePercent = ((totalTodosComplete / (totalTodosComplete + totalTodosIncomplete)) * 100);
+                                p.CompletePercent = ((totalTodosComplete / (p.projToDos)) * 100);
                             }
                             
                             projects.ForEach(Console.WriteLine);
